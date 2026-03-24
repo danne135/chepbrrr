@@ -15,10 +15,10 @@
   }
 
   /* ── 導覽列 ── */
-  nav {
-    background: rgba(0,0,0,0.35);
+  .site-nav {
+    background: rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     padding: 14px 24px;
     display: flex;
     align-items: center;
@@ -28,13 +28,14 @@
     position: sticky;
     top: 0;
     z-index: 100;
+    width: 100%;
   }
   .nav-brand { display: flex; align-items: center; gap: 12px; }
-  .nav-logo { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 2px solid #f6d365; box-shadow: 0 0 10px rgba(246,211,101,0.5); background: #fff; }
+  .nav-logo { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 2px solid #f6d365; box-shadow: 0 0 10px rgba(246,211,101,0.5); background: #fff; flex-shrink: 0; }
   .nav-logo img { width: 100%; height: 100%; object-fit: cover; }
-  .nav-brand span { font-size: 15px; font-weight: 700; color: #f6d365; }
-  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
-  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 13px; padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.25s; }
+  .nav-brand span { font-size: 16px; font-weight: 700; color: #f6d365; font-family: 'Noto Serif TC', serif; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 15px; font-weight: 600; font-family: 'Inter', sans-serif; padding: 8px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.25s; }
   .nav-links a:hover, .nav-links a.active { background: rgba(246,211,101,0.2); border-color: #f6d365; color: #f6d365; }
 
   /* ── 主體 ── */
@@ -188,8 +189,8 @@
   footer { background: rgba(0,0,0,0.4); border-top: 1px solid rgba(255,255,255,0.1); text-align: center; padding: 24px; font-size: 12px; color: rgba(255,255,255,0.4); }
 
   @media (max-width: 600px) {
-    nav { flex-direction: column; align-items: flex-start; }
-    .nav-links { width: 100%; }
+    .site-nav { flex-direction: column; align-items: flex-start; }
+    .nav-links { width: 100%; justify-content: flex-start; }
     .glass-card { padding: 20px; }
     .venue-table { font-size: 12px; }
     .venue-table th, .venue-table td { padding: 8px 8px; }
@@ -198,7 +199,7 @@
 </head>
 <body>
 
-<nav>
+<nav class="site-nav">
   <div class="nav-brand">
     <div class="nav-logo"><img src="logo.png" alt="Logo"></div>
     <span>環保in彰化</span>
@@ -219,6 +220,14 @@
   <div class="page-header">
     <div class="badge">🏮 115年大甲媽祖遶境</div>
     <h1>彰化資源回收宣導攻略<br>活動說明</h1>
+  </div>
+
+  <!-- 活動攻略圖片 -->
+  <div class="glass-card">
+    <h2>🗺️ 活動攻略</h2>
+    <div style="text-align: center; margin-top: 10px;">
+      <img src="plan.png" alt="活動攻略" style="max-width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+    </div>
   </div>
 
   <!-- 活動目的 -->

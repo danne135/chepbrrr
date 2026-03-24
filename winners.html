@@ -8,9 +8,32 @@
 <style>
   * { box-sizing: border-box; }
   body { font-family: 'Inter', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); color: #333; text-align: center; margin: 0; min-height: 100vh; }
-  .site-nav { width:100%; background:rgba(50,50,80,0.88); backdrop-filter:blur(10px); border-bottom:1px solid rgba(255,255,255,0.15); padding:10px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; position:sticky; top:0; z-index:100; }
-  .site-nav a { color:rgba(255,255,255,0.85); text-decoration:none; font-size:12px; padding:5px 11px; border-radius:18px; border:1px solid rgba(255,255,255,0.2); transition:all 0.25s; }
-  .site-nav a:hover, .site-nav a.active { background:rgba(255,255,255,0.15); color:#fff; }
+  .site-nav {
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 12px; }
+  .nav-logo { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 2px solid #f6d365; box-shadow: 0 0 10px rgba(246,211,101,0.5); background: #fff; flex-shrink: 0; }
+  .nav-logo img { width: 100%; height: 100%; object-fit: cover; }
+  .nav-brand span { font-size: 16px; font-weight: 700; color: #f6d365; font-family: 'Noto Serif TC', serif; }
+  .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-links a { color: rgba(255, 255, 255, 0.85); text-decoration: none; font-size: 15px; font-weight: 600; font-family: 'Inter', sans-serif; padding: 8px 14px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.25s; }
+  .nav-links a:hover, .nav-links a.active { background: rgba(246, 211, 101, 0.2); border-color: #f6d365; color: #f6d365; }
+  @media (max-width: 600px) {
+    .site-nav { flex-direction: column; align-items: flex-start; }
+    .nav-links { width: 100%; justify-content: flex-start; }
+  }
   .page-body { padding: 40px 20px; }
   .header { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 40px; }
   .logo-circle { width: 70px; height: 70px; border-radius: 50%; overflow: hidden; background: #fff; border: 3px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.1); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
@@ -31,13 +54,19 @@
 </head>
 <body>
 <nav class="site-nav">
-  <a href="home.html">🏠 首頁</a>
-  <a href="about.html">活動說明</a>
-  <a href="https://reurl.cc/xlXjoL" target="_blank">活動地圖</a>
-  <a href="index.html">活動報名</a>
-  <a href="dashboard.html">活動人數</a>
-  <a href="wheel.html">活動抽獎</a>
-  <a href="winners.html" class="active">中獎名單</a>
+  <div class="nav-brand">
+    <div class="nav-logo"><img src="logo.png" alt="Logo"></div>
+    <span>環保in彰化</span>
+  </div>
+  <div class="nav-links">
+    <a href="home.html">首頁</a>
+    <a href="about.html">活動說明</a>
+    <a href="https://reurl.cc/xlXjoL" target="_blank">活動地圖</a>
+    <a href="index.html">活動報名</a>
+    <a href="dashboard.html">活動人數</a>
+    <a href="wheel.html">活動抽獎</a>
+    <a href="winners.html" class="active">中獎名單</a>
+  </div>
 </nav>
 <div class="page-body">
 <div class="header">
