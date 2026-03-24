@@ -58,24 +58,34 @@ function submitForm(){
   const msg = document.getElementById("msg");
   const btn = document.getElementById("submitBtn");
   
-  // 第一重防呆：欄位必填
-  if(!name.value || !phone.value || !serial.value) {
+  const nameVal = document.getElementById("name").value.trim();
+  const phoneVal = document.getElementById("phone").value.trim();
+  const serialVal = document.getElementById("serial").value.trim();
+  const fileInput = document.getElementById("file");
+  
+  // 第一重防呆：明確指出缺漏欄位
+  let missing = [];
+  if(!nameVal) missing.push("姓名");
+  if(!phoneVal) missing.push("手機號碼");
+  if(!serialVal) missing.push("報名序號");
+  
+  if (missing.length > 0) {
     msg.style.color = "#d9534f";
-    msg.innerText = "請填寫完整資料！";
+    msg.innerText = "請填寫：\n" + missing.join("、");
     return;
   }
   
   // 第二重防呆：電話格式 09 開頭且 10 碼
   let phoneRegex = /^09\d{8}$/;
-  if(!phoneRegex.test(phone.value)) {
+  if(!phoneRegex.test(phoneVal)) {
     msg.style.color = "#d9534f";
     msg.innerText = "電話格式錯誤，需為 09 開頭且總共 10 碼數字。";
     return;
   }
   
   // 第三重防呆：檔案大小限制 5MB
-  if(file.files[0]) {
-    const sizeInBytes = file.files[0].size;
+  if(fileInput.files[0]) {
+    const sizeInBytes = fileInput.files[0].size;
     const maxSize = 5 * 1024 * 1024; // 5MB
     if(sizeInBytes > maxSize) {
       msg.style.color = "#d9534f";
@@ -90,10 +100,10 @@ function submitForm(){
   btn.innerText = "處理中...";
 
   let f=new FormData();
-  f.append("name",name.value);
-  f.append("phone",phone.value);
-  f.append("serial",serial.value);
-  if(file.files[0]) f.append("file",file.files[0]);
+  f.append("name", nameVal);
+  f.append("phone", phoneVal);
+  f.append("serial", serialVal);
+  if(fileInput.files[0]) f.append("file", fileInput.files[0]);
 
   fetch(API_URL,{method:"POST",body:f})
   .then(r=>r.text())
