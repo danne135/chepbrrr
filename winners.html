@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>最新中獎名單</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); color: #333; text-align: center; padding: 40px 20px; margin: 0; min-height: 100vh; }
+  .header { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 40px; }
+  .logo-circle { width: 70px; height: 70px; border-radius: 50%; overflow: hidden; background: #fff; border: 3px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.1); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+  h1 { margin: 0; color: #333; font-size: 32px; font-weight: 700; letter-spacing: 0.5px; }
+  .container { max-width: 650px; margin: 0 auto; background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); backdrop-filter: blur(10px); }
+  .prize-section { margin-bottom: 30px; text-align: left; }
+  .prize-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 12px 20px; border-radius: 12px; display: inline-block; box-shadow: 0 4px 10px rgba(118,75,162,0.2); }
+  .winner-item { padding: 15px; border-bottom: 1px dashed #e1e5eb; font-size: 18px; color: #555; display: flex; align-items: center; justify-content: space-between; transition: background 0.2s; border-radius: 8px; }
+  .winner-item:hover { background: #f8f9fa; }
+  .winner-item:last-child { border-bottom: none; }
+  .winner-info { display: flex; align-items: center; gap: 10px; }
+  .winner-idx { font-weight: 700; color: #764ba2; min-width: 25px; }
+  .winner-name { font-weight: 700; color: #222; font-size: 20px; }
+  .winner-serial { font-size: 14px; color: #888; background: #eee; padding: 4px 10px; border-radius: 20px; }
+  .no-data { font-size: 18px; color: #888; padding: 30px; border: 2px dashed #ccc; border-radius: 12px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo-circle">
+    <img src="logo.png" alt="Logo">
+  </div>
+  <h1>🏆 最新中獎名單</h1>
+</div>
+<div class="container">
+  <div id="winnersContainer">
+    <div class="no-data">正在載入中獎資料...</div>
+  </div>
+</div>
+
+<script>
+function loadWinners() {
+  const container = document.getElementById("winnersContainer");
+  const stored = localStorage.getItem('drawWinners');
+  
+  if (!stored) {
+    container.innerHTML = '<div class="no-data">目前尚未開出任何獎項！</div>';
+    return;
+  }
+  
+  const winners = JSON.parse(stored);
+  let html = '';
+  let hasWinners = false;
+  
+  const prizeOrder = ["頭獎", "二獎", "三獎", "四獎", "五獎"];
+  prizeOrder.forEach(prize => {
+    if (winners[prize] && winners[prize].length > 0) {
+      hasWinners = true;
+      html += `<div class="prize-section"><div class="prize-title">${prize}</div>`;
+      winners[prize].forEach((w, idx) => {
+        html += `<div class="winner-item">
+            <div class="winner-info"><span class="winner-idx">${idx + 1}.</span> <span class="winner-name">${w.name}</span></div>
+            <div class="winner-serial">序號: ${w.serial}</div>
+          </div>`;
+      });
+      html += `</div>`;
+    }
+  });
+  
+  if (!hasWinners) {
+    html = '<div class="no-data">目前尚未開出任何獎項！</div>';
+  }
+  
+  container.innerHTML = html;
+}
+
+loadWinners();
+setInterval(loadWinners, 2000); 
+</script>
+</body>
+</html>

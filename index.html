@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>活動報名</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; margin: 0; display: flex; justify-content: center; align-items: center; padding: 20px; }
+  .container { width: 100%; max-width: 480px; background: rgba(255, 255, 255, 0.95); padding: 40px 30px; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); backdrop-filter: blur(10px); }
+  .header { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 30px; }
+  .logo-circle { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; background: #fff; border: 3px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.1); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+  h2 { margin: 0; color: #333; font-size: 26px; font-weight: 700; letter-spacing: 0.5px; }
+  .input-group { margin-bottom: 15px; text-align: left; }
+  .input-group label { display: block; font-size: 14px; color: #555; margin-bottom: 5px; font-weight: 600; }
+  input { width: 100%; padding: 14px 16px; border: 1px solid #e1e5eb; border-radius: 12px; font-size: 15px; background: #f8f9fa; transition: all 0.3s; }
+  input:focus { border-color: #667eea; background: #fff; box-shadow: 0 0 0 4px rgba(102,126,234,0.15); outline: none; }
+  input[type="file"] { padding: 10px; background: #f0f2f5; font-size: 14px; border: 1px dashed #ccc; cursor: pointer; }
+  button { width: 100%; padding: 16px; margin-top: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; font-size: 16px; cursor: pointer; transition: all 0.3s; font-weight: 700; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(118,75,162,0.4); }
+  button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(118,75,162,0.6); }
+  button:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+  #msg { margin-top: 20px; font-weight: 600; color: #d9534f; text-align: center; min-height: 24px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo-circle">
+      <img src="logo.png" alt="Logo">
+    </div>
+    <h2>活動報名</h2>
+  </div>
+  
+  <div class="input-group">
+    <input id="name" placeholder="請輸入姓名">
+  </div>
+  <div class="input-group">
+    <input id="phone" placeholder="手機號碼 (例如: 0912345678)">
+  </div>
+  <div class="input-group">
+    <input id="serial" placeholder="請輸入報名序號">
+  </div>
+  <div class="input-group">
+    <label>上傳存根聯證明 (JPG/PDF, 限 5MB)</label>
+    <input type="file" id="file" accept="image/*,.pdf">
+  </div>
+  
+  <button onclick="submitForm()" id="submitBtn">確認送出報名</button>
+  <div id="msg"></div>
+</div>
+
+<script>
+const API_URL="https://script.google.com/macros/s/AKfycbyTCQFl-kCcMrPJOsxQo2P-etvyyLdAeDBSifky3ifa4hLb9vqI6tZ8wk9-wAXEXdn7/exec";
+
+function submitForm(){
+  const msg = document.getElementById("msg");
+  const btn = document.getElementById("submitBtn");
+  
+  // 第一重防呆：欄位必填
+  if(!name.value || !phone.value || !serial.value) {
+    msg.style.color = "#d9534f";
+    msg.innerText = "請填寫完整資料！";
+    return;
+  }
+  
+  // 第二重防呆：電話格式 09 開頭且 10 碼
+  let phoneRegex = /^09\d{8}$/;
+  if(!phoneRegex.test(phone.value)) {
+    msg.style.color = "#d9534f";
+    msg.innerText = "電話格式錯誤，需為 09 開頭且總共 10 碼數字。";
+    return;
+  }
+  
+  // 第三重防呆：檔案大小限制 5MB
+  if(file.files[0]) {
+    const sizeInBytes = file.files[0].size;
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if(sizeInBytes > maxSize) {
+      msg.style.color = "#d9534f";
+      msg.innerText = "上傳檔案過大，請勿超過 5MB。";
+      return;
+    }
+  }
+
+  msg.style.color = "#667eea";
+  msg.innerText = "資料送出中，請稍候...";
+  btn.disabled = true;
+  btn.innerText = "處理中...";
+
+  let f=new FormData();
+  f.append("name",name.value);
+  f.append("phone",phone.value);
+  f.append("serial",serial.value);
+  if(file.files[0]) f.append("file",file.files[0]);
+
+  fetch(API_URL,{method:"POST",body:f})
+  .then(r=>r.text())
+  .then(t=>{
+    msg.innerText=t;
+    if(t === "成功報名") {
+      msg.style.color = "#28a745";
+      btn.innerText = "報名成功！";
+    } else {
+      msg.style.color = "#d9534f";
+      btn.disabled = false;
+      btn.innerText = "確認送出報名";
+    }
+  })
+  .catch(err=>{
+    msg.innerText="網路錯誤，請稍後再試";
+    msg.style.color = "#d9534f";
+    btn.disabled = false;
+    btn.innerText = "確認送出報名";
+  });
+}
+</script>
+</body>
+</html>
