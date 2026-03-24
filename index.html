@@ -52,7 +52,7 @@
 </div>
 
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbwx7AylVf6d98Ce_4ewdJz0_fsDGhNzTyX3WPHZGE1WSVkZq3GxssQ-oc905xIchii2/exec";
+const API_URL="https://script.google.com/macros/s/AKfycbxm-RsvabcNXdr60ulw-hxcmWrjJ-DetIgmZd-xjkjMiDhbWUNnYq9cLc9O5GnSOosX/exec";
 
 function submitForm(){
   const msg = document.getElementById("msg");
@@ -100,31 +100,42 @@ function submitForm(){
   btn.disabled = true;
   btn.innerText = "處理中...";
 
-  let f=new FormData();
-  f.append("name", nameVal);
-  f.append("phone", phoneVal);
-  f.append("serial", serialVal);
-  f.append("file", fileInput.files[0]);
+  const fileObj = fileInput.files[0];
+  const reader = new FileReader();
 
-  fetch(API_URL,{method:"POST",body:f})
-  .then(r=>r.text())
-  .then(t=>{
-    msg.innerText=t;
-    if(t === "成功報名") {
-      msg.style.color = "#28a745";
-      btn.innerText = "報名成功！";
-    } else {
+  reader.onload = function(e) {
+    const base64Data = e.target.result.split(',')[1];
+    
+    let f = new FormData();
+    f.append("name", nameVal);
+    f.append("phone", phoneVal);
+    f.append("serial", serialVal);
+    f.append("fileName", fileObj.name);
+    f.append("mimeType", fileObj.type);
+    f.append("fileBase64", base64Data);
+
+    fetch(API_URL, { method: "POST", body: f })
+    .then(r => r.text())
+    .then(t => {
+      msg.innerText = t;
+      if (t === "成功報名") {
+        msg.style.color = "#28a745";
+        btn.innerText = "報名成功！";
+      } else {
+        msg.style.color = "#d9534f";
+        btn.disabled = false;
+        btn.innerText = "確認送出報名";
+      }
+    })
+    .catch(err => {
+      msg.innerText = "網路錯誤，請稍後再試";
       msg.style.color = "#d9534f";
       btn.disabled = false;
       btn.innerText = "確認送出報名";
-    }
-  })
-  .catch(err=>{
-    msg.innerText="網路錯誤，請稍後再試";
-    msg.style.color = "#d9534f";
-    btn.disabled = false;
-    btn.innerText = "確認送出報名";
-  });
+    });
+  };
+  
+  reader.readAsDataURL(fileObj);
 }
 </script>
 </body>
