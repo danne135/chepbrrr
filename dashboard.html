@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<h2>報名統計</h2>
+<p>總數:<span id="total">0</span></p>
+<canvas id="c"></canvas>
+
+<script>
+const API_URL="https://script.google.com/macros/s/AKfycbxoBQNeaTzbi8NDyHrbu2YN9pPwhjOYsyOafHt1cqZK_B2b2ArcvWezdH9y0oRoymnW/exec?action=getData";
+
+async function load(){
+ let r=await fetch(API_URL);
+ let d=await r.json();
+ total.innerText=d.length;
+
+ let m={};
+ d.forEach(x=>{
+  let date=new Date(x.time).toLocaleDateString();
+  m[date]=(m[date]||0)+1;
+ });
+
+ new Chart(c,{type:"bar",
+ data:{labels:Object.keys(m),
+ datasets:[{data:Object.values(m)}]}});
+}
+load();
+</script>
+</body>
+</html>
