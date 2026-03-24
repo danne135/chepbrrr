@@ -52,7 +52,7 @@
 </div>
 
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbxm-RsvabcNXdr60ulw-hxcmWrjJ-DetIgmZd-xjkjMiDhbWUNnYq9cLc9O5GnSOosX/exec";
+const API_URL="https://script.google.com/macros/s/AKfycbxmpfE-nPCiIkNKkC6IO1Z8f4NVRS1tNOBoOgDQJQQxol0lWuUHQHvERF_yxuiSWHev/exec";
 
 function submitForm(){
   const msg = document.getElementById("msg");
@@ -106,15 +106,19 @@ function submitForm(){
   reader.onload = function(e) {
     const base64Data = e.target.result.split(',')[1];
     
-    let f = new FormData();
-    f.append("name", nameVal);
-    f.append("phone", phoneVal);
-    f.append("serial", serialVal);
-    f.append("fileName", fileObj.name);
-    f.append("mimeType", fileObj.type);
-    f.append("fileBase64", base64Data);
+    const payload = JSON.stringify({
+      name: nameVal,
+      phone: phoneVal,
+      serial: serialVal,
+      fileName: fileObj.name,
+      mimeType: fileObj.type,
+      fileBase64: base64Data
+    });
 
-    fetch(API_URL, { method: "POST", body: f })
+    fetch(API_URL, { 
+      method: "POST", 
+      body: payload
+    })
     .then(r => r.text())
     .then(t => {
       msg.innerText = t;
