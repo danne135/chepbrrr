@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>115年大甲媽祖遶境 彰化資源回收宣導攻略</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Serif TC', serif;
+    background: linear-gradient(160deg, #8B1A1A 0%, #C0392B 30%, #922B21 60%, #641E16 100%);
+    min-height: 100vh;
+    color: #fff;
+  }
+
+  /* ── 頂部裝飾條 ── */
+  .top-bar {
+    background: linear-gradient(90deg, #2C3E50, #4A235A, #2C3E50);
+    text-align: center;
+    padding: 8px;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: #f6d365;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ── 導覽列 ── */
+  nav {
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .nav-logo {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #f6d365;
+    box-shadow: 0 0 10px rgba(246,211,101,0.5);
+    flex-shrink: 0;
+    background: #fff;
+  }
+  .nav-logo img { width: 100%; height: 100%; object-fit: cover; }
+  .nav-brand span {
+    font-size: 15px;
+    font-weight: 700;
+    color: #f6d365;
+    line-height: 1.3;
+  }
+  .nav-links {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.25s;
+  }
+  .nav-links a:hover {
+    background: rgba(246,211,101,0.2);
+    border-color: #f6d365;
+    color: #f6d365;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 60px 24px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(246,211,101,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-logo {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid #f6d365;
+    box-shadow: 0 0 30px rgba(246,211,101,0.5), 0 0 60px rgba(246,211,101,0.2);
+    margin: 0 auto 24px;
+    background: #fff;
+  }
+  .hero-logo img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(246,211,101,0.2);
+    border: 1px solid rgba(246,211,101,0.5);
+    color: #f6d365;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 3px;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(24px, 5vw, 44px);
+    font-weight: 900;
+    line-height: 1.3;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    margin-bottom: 8px;
+    color: #fff9e6;
+  }
+  .hero h1 span { color: #f6d365; }
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+  }
+
+  /* 快速日期/地點資訊條 */
+  .info-strip {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+  }
+  .info-chip {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+  }
+  .info-chip .icon { font-size: 18px; }
+
+  /* ── 導航卡片區 ── */
+  .section-title {
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: rgba(255,255,255,0.6);
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 28px;
+    text-transform: uppercase;
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+  }
+  .card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 32px 28px;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent, linear-gradient(90deg, #f6d365, #fda085));
+    opacity: 0;
+    transition: opacity 0.35s;
+  }
+  .card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.3); }
+  .card:hover::before { opacity: 1; }
+  .card-icon { font-size: 40px; line-height: 1; }
+  .card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff9e6;
+  }
+  .card-desc {
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+  }
+  .card-arrow {
+    margin-top: auto;
+    font-size: 13px;
+    color: #f6d365;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* 特定卡片色調 */
+  .card-about { --accent: linear-gradient(90deg, #f6d365, #e67e22); }
+  .card-map   { --accent: linear-gradient(90deg, #56ab2f, #a8e063); }
+  .card-reg   { --accent: linear-gradient(90deg, #667eea, #764ba2); }
+  .card-dash  { --accent: linear-gradient(90deg, #4facfe, #00f2fe); }
+  .card-draw  { --accent: linear-gradient(90deg, #f093fb, #f5576c); }
+  .card-win   { --accent: linear-gradient(90deg, #43e97b, #38f9d7); }
+
+  /* ── 頁尾 ── */
+  footer {
+    background: rgba(0,0,0,0.4);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    color: rgba(255,255,255,0.4);
+  }
+
+  @media (max-width: 600px) {
+    nav { flex-direction: column; align-items: flex-start; }
+    .nav-links { width: 100%; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .info-strip { gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">115年大甲媽祖遶境 ・ 彰化資源回收宣導攻略 ・ 和全豐贊助</div>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo"><img src="logo.png" alt="Logo"></div>
+    <span>環保in彰化</span>
+  </div>
+  <div class="nav-links">
+    <a href="home.html">首頁</a>
+    <a href="about.html">活動說明</a>
+    <a href="https://reurl.cc/xlXjoL" target="_blank">活動地圖</a>
+    <a href="index.html">活動報名</a>
+    <a href="dashboard.html">活動人數</a>
+    <a href="wheel.html">活動抽獎</a>
+    <a href="winners.html">中獎名單</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-logo"><img src="logo.png" alt="Logo"></div>
+  <div class="hero-badge">🎉 115年 大甲媽祖遶境 ・ 環保宣導活動</div>
+  <h1><span>彰化資源回收</span><br>宣導攻略</h1>
+  <p class="hero-sub">Clean · Classify · Stack ／ 減少一次性餐具，守護彰化環境</p>
+
+  <div class="info-strip">
+    <div class="info-chip"><span class="icon">📅</span> 遶境：115年4月17日 – 26日（共9天8夜）</div>
+    <div class="info-chip"><span class="icon">📍</span> 途經彰化：4月18-19日 & 23-24日（共4日）</div>
+    <div class="info-chip"><span class="icon">🎁</span> 兌換涼感巾(3000份)・電子抽獎</div>
+  </div>
+</div>
+
+<!-- 導航卡片 -->
+<p class="section-title">選擇功能進入</p>
+<div class="cards-grid">
+
+  <a href="about.html" class="card card-about">
+    <div class="card-icon">📋</div>
+    <div class="card-title">活動說明</div>
+    <div class="card-desc">查看活動目的、集點流程、宣導場次地點表，一次了解所有活動資訊。</div>
+    <div class="card-arrow">了解活動 →</div>
+  </a>
+
+  <a href="https://reurl.cc/xlXjoL" target="_blank" class="card card-map">
+    <div class="card-icon">🗺️</div>
+    <div class="card-title">活動地圖</div>
+    <div class="card-desc">查看「姆祖遶境-環保攻略」電子地圖，快速定位各宣導場次地點與回收站。</div>
+    <div class="card-arrow">開啟地圖 →</div>
+  </a>
+
+  <a href="index.html" class="card card-reg">
+    <div class="card-icon">✍️</div>
+    <div class="card-title">活動報名</div>
+    <div class="card-desc">填寫姓名、電話、序號並上傳存根聯證明，完成報名即可參加抽獎！</div>
+    <div class="card-arrow">立即報名 →</div>
+  </a>
+
+  <a href="dashboard.html" class="card card-dash">
+    <div class="card-icon">📊</div>
+    <div class="card-title">活動人數</div>
+    <div class="card-desc">即時查看目前報名總人數及每日報名統計圖表。</div>
+    <div class="card-arrow">查看統計 →</div>
+  </a>
+
+  <a href="wheel.html" class="card card-draw">
+    <div class="card-icon">🎰</div>
+    <div class="card-title">活動抽獎</div>
+    <div class="card-desc">進行電子抽獎，公開透明抽出頭獎至五獎得主，鎖定後不可重抽！</div>
+    <div class="card-arrow">開始抽獎 →</div>
+  </a>
+
+  <a href="winners.html" class="card card-win">
+    <div class="card-icon">🏆</div>
+    <div class="card-title">中獎名單</div>
+    <div class="card-desc">查看各獎項完整得獎名單，確認您是否榮獲好禮！</div>
+    <div class="card-arrow">查看名單 →</div>
+  </a>
+
+</div>
+
+<footer>
+  © 115年大甲媽祖遶境彰化資源回收宣導攻略 ・ 和全豐贊助 ・ 環保in彰化
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>活動說明 – 115年大甲媽祖遶境彰化資源回收宣導攻略</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', 'Noto Serif TC', sans-serif;
+    background: linear-gradient(160deg, #8B1A1A 0%, #C0392B 30%, #922B21 60%, #641E16 100%);
+    min-height: 100vh;
+    color: #fff;
+  }
+
+  /* ── 導覽列 ── */
+  nav {
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 12px; }
+  .nav-logo { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 2px solid #f6d365; box-shadow: 0 0 10px rgba(246,211,101,0.5); background: #fff; }
+  .nav-logo img { width: 100%; height: 100%; object-fit: cover; }
+  .nav-brand span { font-size: 15px; font-weight: 700; color: #f6d365; }
+  .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 13px; padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); transition: all 0.25s; }
+  .nav-links a:hover, .nav-links a.active { background: rgba(246,211,101,0.2); border-color: #f6d365; color: #f6d365; }
+
+  /* ── 主體 ── */
+  .main { max-width: 900px; margin: 0 auto; padding: 40px 24px 60px; }
+
+  /* 頁面標題 */
+  .page-header { text-align: center; margin-bottom: 48px; }
+  .page-header .badge { display: inline-block; background: rgba(246,211,101,0.2); border: 1px solid rgba(246,211,101,0.5); color: #f6d365; font-size: 12px; letter-spacing: 3px; padding: 5px 16px; border-radius: 20px; margin-bottom: 14px; }
+  .page-header h1 { font-family: 'Noto Serif TC', serif; font-size: clamp(24px, 4.5vw, 38px); font-weight: 900; color: #fff9e6; line-height: 1.3; text-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+
+  /* 玻璃卡片 */
+  .glass-card {
+    background: rgba(255,255,255,0.09);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 32px;
+    backdrop-filter: blur(10px);
+    margin-bottom: 28px;
+  }
+  .glass-card h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #f6d365;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .glass-card h2::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* 活動目的 */
+  .purpose-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .purpose-item {
+    background: rgba(0,0,0,0.2);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+  }
+  .purpose-item .emoji { font-size: 36px; margin-bottom: 10px; }
+  .purpose-item strong { display: block; font-size: 15px; color: #f6d365; margin-bottom: 6px; font-family: 'Noto Serif TC', serif; }
+  .purpose-item p { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.6; }
+
+  /* 日期 */
+  .date-list { display: flex; flex-direction: column; gap: 14px; }
+  .date-item { display: flex; gap: 14px; align-items: flex-start; }
+  .date-dot { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #f6d365, #e67e22); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .date-content strong { display: block; color: #f6d365; font-size: 14px; margin-bottom: 4px; }
+  .date-content p { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.5; }
+
+  /* 集點流程 */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step-item { display: flex; gap: 16px; align-items: flex-start; position: relative; padding-bottom: 24px; }
+  .step-item:last-child { padding-bottom: 0; }
+  .step-item::before {
+    content: '';
+    position: absolute;
+    left: 22px;
+    top: 44px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(246,211,101,0.4), transparent);
+  }
+  .step-item:last-child::before { display: none; }
+  .step-num {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f6d365, #fda085);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800;
+    color: #4a2810;
+    flex-shrink: 0;
+  }
+  .step-body strong { font-size: 17px; color: #fff9e6; display: block; margin-bottom: 6px; font-family: 'Noto Serif TC', serif; }
+  .step-body ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  .step-body ul li {
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .step-body p { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.6; }
+
+  /* 場次表格 */
+  .venue-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .venue-table thead tr {
+    background: linear-gradient(90deg, rgba(246,211,101,0.25), rgba(253,160,133,0.25));
+  }
+  .venue-table th {
+    padding: 12px 14px;
+    font-weight: 700;
+    color: #f6d365;
+    text-align: left;
+    font-family: 'Noto Serif TC', serif;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+  }
+  .venue-table td {
+    padding: 12px 14px;
+    color: rgba(255,255,255,0.85);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .venue-table tbody tr:hover { background: rgba(255,255,255,0.05); }
+  .badge-note {
+    background: rgba(246,211,101,0.2);
+    border: 1px solid rgba(246,211,101,0.4);
+    color: #f6d365;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 8px;
+  }
+
+  /* 回收圖示 */
+  .recycle-icons { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+  .recycle-item { text-align: center; font-size: 12px; color: rgba(255,255,255,0.75); }
+  .recycle-item .ri { font-size: 32px; display: block; margin-bottom: 6px; }
+
+  /* 地圖連結卡 */
+  .map-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(86,171,47,0.15);
+    border: 1px solid rgba(86,171,47,0.4);
+    border-radius: 16px;
+    padding: 24px;
+    text-decoration: none;
+    transition: all 0.3s;
+    color: #fff;
+  }
+  .map-card:hover { background: rgba(86,171,47,0.25); transform: translateY(-3px); }
+  .map-card-icon { font-size: 48px; }
+  .map-card-body strong { display: block; font-size: 16px; color: #a8e063; margin-bottom: 6px; font-family: 'Noto Serif TC', serif; }
+  .map-card-body span { font-size: 13px; color: rgba(255,255,255,0.75); }
+
+  /* 底部資訊 */
+  footer { background: rgba(0,0,0,0.4); border-top: 1px solid rgba(255,255,255,0.1); text-align: center; padding: 24px; font-size: 12px; color: rgba(255,255,255,0.4); }
+
+  @media (max-width: 600px) {
+    nav { flex-direction: column; align-items: flex-start; }
+    .nav-links { width: 100%; }
+    .glass-card { padding: 20px; }
+    .venue-table { font-size: 12px; }
+    .venue-table th, .venue-table td { padding: 8px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo"><img src="logo.png" alt="Logo"></div>
+    <span>環保in彰化</span>
+  </div>
+  <div class="nav-links">
+    <a href="home.html">首頁</a>
+    <a href="about.html" class="active">活動說明</a>
+    <a href="https://reurl.cc/xlXjoL" target="_blank">活動地圖</a>
+    <a href="index.html">活動報名</a>
+    <a href="dashboard.html">活動人數</a>
+    <a href="wheel.html">活動抽獎</a>
+    <a href="winners.html">中獎名單</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <div class="page-header">
+    <div class="badge">🏮 115年大甲媽祖遶境</div>
+    <h1>彰化資源回收宣導攻略<br>活動說明</h1>
+  </div>
+
+  <!-- 活動目的 -->
+  <div class="glass-card">
+    <h2>🌱 活動目的</h2>
+    <div class="purpose-grid">
+      <div class="purpose-item">
+        <div class="emoji">🗂️</div>
+        <strong>清理分類堆疊</strong>
+        <p>倡導正確資源回收分類，讓廢棄物回歸循環利用</p>
+      </div>
+      <div class="purpose-item">
+        <div class="emoji">🍽️</div>
+        <strong>減少一次性餐具</strong>
+        <p>遶境活動中推廣使用環保餐具，降低一次性廢棄物</p>
+      </div>
+      <div class="purpose-item">
+        <div class="emoji">♻️</div>
+        <strong>環保習慣養成</strong>
+        <p>透過集點遊戲化機制，讓環保行動變得輕鬆有趣</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 活動日期 -->
+  <div class="glass-card">
+    <h2>📅 活動日期</h2>
+    <div class="date-list">
+      <div class="date-item">
+        <div class="date-dot">🛤️</div>
+        <div class="date-content">
+          <strong>遶境活動期間</strong>
+          <p>115年4月17日 – 26日（共9天8夜）</p>
+        </div>
+      </div>
+      <div class="date-item">
+        <div class="date-dot">📍</div>
+        <div class="date-content">
+          <strong>途經彰化日期</strong>
+          <p>4月18日（六）、4月19日（日）</p>
+          <p>4月23日（四）、4月24日（五）</p>
+          <p>共 4 日</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 集點活動流程 -->
+  <div class="glass-card">
+    <h2>🎯 集點活動流程</h2>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>索取集點卡</strong>
+          <ul>
+            <li>🏛️ 途經宮廟</li>
+            <li>🧹 清潔隊</li>
+            <li>🏪 設攤點</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>完成任務（擇一或多項）</strong>
+          <ul>
+            <li>👍 臉書按讚分享「環保in彰化」並公開分享/接讚宣導圖卡</li>
+            <li>🎮 回收分類遊戲</li>
+            <li>🥢 出示環保餐具</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>集章</strong>
+          <p>前往設攤場次或智慧回收機，完成集章</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>兌換宣導品 / 參加抽獎</strong>
+          <ul>
+            <li>🎁 兌換涼感巾（3000份）</li>
+            <li>🎰 電子抽獎（全聯禮券、文創品）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 場次地點表格 -->
+  <div class="glass-card">
+    <h2>🏛️ 彰化宣導場次地點（共10場次）</h2>
+    <div style="overflow-x:auto;">
+      <table class="venue-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>宮廟名稱</th>
+            <th>日期</th>
+            <th>設攤時間</th>
+            <th>備註</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>圓聖里永安宮</td><td>4/18（六）</td><td>10:00</td><td></td></tr>
+          <tr><td>2</td><td>南瑤宮</td><td>4/18（六）</td><td>10:00</td><td></td></tr>
+          <tr><td>3</td><td>員林福營宮</td><td>4/19（日）</td><td>08:00</td><td><span class="badge-note">回收機</span></td></tr>
+          <tr><td>4</td><td>聖聖永安宮</td><td>4/19（六）</td><td>08:00</td><td></td></tr>
+          <tr><td>5</td><td>圓聖宮</td><td>4/19（六）</td><td>10:00</td><td></td></tr>
+          <tr><td>6</td><td>車樁宮</td><td>4/18（六）</td><td>10:00</td><td></td></tr>
+          <tr><td>7</td><td>南瑤宮</td><td>4/18（日）</td><td>10:00</td><td></td></tr>
+          <tr><td>8</td><td>員林福營宮</td><td>4/19（日）</td><td>08:00</td><td></td></tr>
+          <tr><td>9</td><td>員林福營宮</td><td>4/19（日）</td><td>08:00</td><td></td></tr>
+          <tr><td>10</td><td>圓聖里宮</td><td>4/10（日）</td><td>09:00</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 資源回收圖示 -->
+  <div class="glass-card">
+    <h2>♻️ 資源回收設施標示</h2>
+    <div class="recycle-icons">
+      <div class="recycle-item"><span class="ri">🗑️</span>一般垃圾</div>
+      <div class="recycle-item"><span class="ri">♻️</span>資源回收</div>
+      <div class="recycle-item"><span class="ri">📦</span>紙容器</div>
+      <div class="recycle-item"><span class="ri">🍶</span>玻璃容器</div>
+      <div class="recycle-item"><span class="ri">🛍️</span>薄片塑膠</div>
+      <div class="recycle-item"><span class="ri">🍱</span>熱廚餘</div>
+      <div class="recycle-item"><span class="ri">🥬</span>生廚餘</div>
+    </div>
+  </div>
+
+  <!-- 地圖連結 -->
+  <a href="https://reurl.cc/xlXjoL" target="_blank" class="map-card">
+    <div class="map-card-icon">🗺️</div>
+    <div class="map-card-body">
+      <strong>「媽祖遶境-環保攻略」電子地圖</strong>
+      <span>點擊開啟 Google 電子地圖，快速查看各場次地點與資源回收設施位置</span>
+    </div>
+  </a>
+
+</div>
+
+<footer>
+  © 115年大甲媽祖遶境彰化資源回收宣導攻略 ・ 和全豐贊助 ・ 環保in彰化
+</footer>
+
+</body>
+</html>
