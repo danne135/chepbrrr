@@ -52,7 +52,7 @@
 </div>
 
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbyMEvwl4MX_Md9tgka39Nz7BOVWcWeG4faEERtI06r15uTHd5z1QFfdSyuQIC8FKZ8Y/exec";
+const API_URL="https://script.google.com/macros/s/AKfycbwx7AylVf6d98Ce_4ewdJz0_fsDGhNzTyX3WPHZGE1WSVkZq3GxssQ-oc905xIchii2/exec";
 
 function submitForm(){
   const msg = document.getElementById("msg");
@@ -68,10 +68,11 @@ function submitForm(){
   if(!nameVal) missing.push("姓名");
   if(!phoneVal) missing.push("手機號碼");
   if(!serialVal) missing.push("報名序號");
+  if(!fileInput.files[0]) missing.push("存根聯證明");
   
   if (missing.length > 0) {
     msg.style.color = "#d9534f";
-    msg.innerText = "請填寫：\n" + missing.join("、");
+    msg.innerText = "請填寫/上傳：\n" + missing.join("、");
     return;
   }
   
@@ -103,7 +104,7 @@ function submitForm(){
   f.append("name", nameVal);
   f.append("phone", phoneVal);
   f.append("serial", serialVal);
-  if(fileInput.files[0]) f.append("file", fileInput.files[0]);
+  f.append("file", fileInput.files[0]);
 
   fetch(API_URL,{method:"POST",body:f})
   .then(r=>r.text())
